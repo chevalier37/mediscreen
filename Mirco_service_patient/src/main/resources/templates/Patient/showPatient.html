@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<h2>Show patient</h2>
+	</div>
+
+	<div class="mt-4" modelAttribute="patient" th:object="${patient}">
+			<div class="form-group">
+				<label for="firstName" class="font-weight-bold">First Name :</label>
+				<span th:text="*{firstName}" class="ml-2 bold"></span>
+			</div>
+
+			<div class="form-group">
+				<label for="familyName" class="font-weight-bold">Family Name :</label>
+				<span th:text="*{familyName}" class="ml-2"></span>
+			</div>
+			
+			<div class="form-group">
+				<label for="dateOfBirth" class="font-weight-bold">Date of birth :</label>
+				<span th:text="*{dateOfBirth}" class="ml-2"></span>
+			</div>
+
+			<div class="form-group">
+				<label for="gender" class="font-weight-bold">Gender :</label>
+				<span th:text="*{gender}" class="ml-2"></span>
+			</div>
+
+			<div class="form-group">
+				<label for="address" class="font-weight-bold">Address :</label>
+				<span th:text="*{address}" class="ml-2"></span>
+			</div>
+			<div class="form-group">
+				<label for="phone" class="font-weight-bold">Phone :</label>
+				<span th:text="*{phone}" class="ml-2"></span>
+			</div>
+
+			<div class="form-group">
+				<div class="">
+					<a class="btn btn-primary btn-sm" href="/patient/list">Return</a>
+				</div>
+			</div>
+	</div>
+
+</div>
+</body>
+</html>
