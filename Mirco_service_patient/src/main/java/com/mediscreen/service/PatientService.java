@@ -13,18 +13,22 @@ import com.mediscreen.repository.PatientRepository;
 public class PatientService {
 
 	@Autowired
-	PatientRepository PatientRepository;
+	PatientRepository patientRepository;
 
 	public Patient addPatient(Patient patient) {
-		return PatientRepository.save(patient);
+		return patientRepository.save(patient);
 	}
 
 	public List<Patient> listPatient() {
-		return PatientRepository.findAll();
+		return patientRepository.findAll();
 	}
 
-	public Optional<Patient> getPatient(String id) {
-		return PatientRepository.findById(id);
+	public Optional<Patient> getPatientById(String id) {
+		return patientRepository.findById(id);
+	}
+
+	public Patient getPatientByFamilyName(String familyName) {
+		return patientRepository.findByFamilyName(familyName);
 	}
 
 }
