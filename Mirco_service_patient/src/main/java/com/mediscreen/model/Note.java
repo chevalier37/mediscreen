@@ -1,5 +1,7 @@
 package com.mediscreen.model;
 
+import java.util.Date;
+
 public class Note {
 
 	private String id;
@@ -8,9 +10,21 @@ public class Note {
 
 	private String note;
 
-	public Note(String patientId, String note) {
+	private Date date;
+
+	public Note(String patientId, String note, Date date) {
+		super();
 		this.patientId = patientId;
 		this.note = note;
+		this.date = date;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getId() {

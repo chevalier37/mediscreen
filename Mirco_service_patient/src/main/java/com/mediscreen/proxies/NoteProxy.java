@@ -15,10 +15,13 @@ import com.mediscreen.model.Note;
 @RibbonClient(name = "micro-note")
 public interface NoteProxy {
 
-	@GetMapping("listNote/{patientId}")
+	@GetMapping("note/listNote/{patientId}")
 	List<Note> listNotes(@PathVariable(value = "patientId") String patientId);
 
-	@PostMapping("addNote")
+	@PostMapping("note/addNote")
 	Note addNote(@RequestBody Note note);
+
+	@GetMapping("note/getNote/{noteId}")
+	Note getNote(@PathVariable(value = "noteId") String noteId);
 
 }

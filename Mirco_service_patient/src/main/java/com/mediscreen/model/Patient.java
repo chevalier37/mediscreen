@@ -1,48 +1,58 @@
 package com.mediscreen.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Document(collection = "Patient")
+@Entity
+@Table(name = "patient")
 public class Patient {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 
-	@Field(value = "firstName")
+	@Column(name = "first_name")
 	@NotBlank(message = "First Name is mandatory")
 	private String firstName;
 
 	@NotBlank(message = "Family Name is mandatory")
-	@Field(value = "familyName")
+	@Column(name = "family_name")
 	private String familyName;
 
 	@NotNull(message = "Date of birth is mandatory")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Field(value = "dateOfBirth")
-	private Date dateOfBirth;
+	@Column(name = "date_of_birth")
+	private LocalDate dateOfBirth;
 
-	@NotBlank(message = "Gender is mandatory")
-	@Field(value = "gender")
-	private String gender;
+	@Column(name = "gender")
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 
-	@Field(value = "address")
+	@Column(name = "address")
 	private String address;
 
-	@Field(value = "phone")
+	@Column(name = "phone")
 	private String phone;
+
+	public Patient() {
+	}
 
 	public Patient(@NotBlank(message = "First Name is mandatory") String firstName,
 			@NotBlank(message = "Family Name is mandatory") String familyName,
-			@NotBlank(message = "Date of birth is mandatory") Date dateOfBirth,
-			@NotBlank(message = "Gender is mandatory") String gender, String address, String phone) {
+			@NotBlank(message = "Date of birth is mandatory") LocalDate dateOfBirth,
+			@NotBlank(message = "Gender is mandatory") Gender gender, String address, String phone) {
 		this.firstName = firstName;
 		this.familyName = familyName;
 		this.dateOfBirth = dateOfBirth;
@@ -75,19 +85,19 @@ public class Patient {
 		this.familyName = familyName;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
