@@ -21,7 +21,7 @@ public class Patient {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private int id;
 
 	@Column(name = "first_name")
 	@NotBlank(message = "First Name is mandatory")
@@ -61,11 +61,11 @@ public class Patient {
 		this.phone = phone;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

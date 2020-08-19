@@ -23,7 +23,7 @@ public class PatientService {
 		return patientRepository.findAll();
 	}
 
-	public Optional<Patient> getPatientById(String id) {
+	public Optional<Patient> getPatientById(int id) {
 		return patientRepository.findById(id);
 	}
 

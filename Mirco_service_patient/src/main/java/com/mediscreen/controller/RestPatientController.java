@@ -17,7 +17,7 @@ public class RestPatientController {
 	PatientService patientService;
 
 	@GetMapping("getPatient/{id}")
-	public Patient showPatient(@PathVariable("id") String id) {
+	public Patient showPatient(@PathVariable("id") int id) {
 		return patientService.getPatientById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + id));
 	}

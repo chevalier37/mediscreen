@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -92,7 +91,7 @@ public class PatientController {
 	}
 
 	@GetMapping("/update/{id}")
-	public String showUpdateForm(@PathVariable("id") String id, Model model) {
+	public String showUpdateForm(@PathVariable("id") int id, Model model) {
 
 		Patient patient = patientService.getPatientById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + id));
@@ -116,7 +115,7 @@ public class PatientController {
 	}
 
 	@GetMapping("/{id}")
-	public String showPatient(@PathVariable("id") String id, Model model) {
+	public String showPatient(@PathVariable("id") int id, Model model) {
 		Patient patient = patientService.getPatientById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + id));
 		String rapport = rapportProxy.getRapport(id);
@@ -126,7 +125,7 @@ public class PatientController {
 	}
 
 	@GetMapping("/note/{idPatient}")
-	public String patientNotes(@PathVariable("idPatient") String idPatient, Model model) {
+	public String patientNotes(@PathVariable("idPatient") int idPatient, Model model) {
 		List<Note> listNotes = noteProxy.listNotes(idPatient);
 		Patient patient = patientService.getPatientById(idPatient)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + idPatient));
@@ -136,7 +135,7 @@ public class PatientController {
 	}
 
 	@GetMapping("/addNotes/{idPatient}")
-	public String addNoteview(@PathVariable("idPatient") String idPatient, Note note, Model model) {
+	public String addNoteview(@PathVariable("idPatient") int idPatient, Note note, Model model) {
 		Patient patient = patientService.getPatientById(idPatient)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid patient Id:" + idPatient));
 		model.addAttribute("patient", patient);
@@ -146,11 +145,11 @@ public class PatientController {
 
 	@PostMapping("/addNotes/{idPatient}")
 	public void addNote(@ModelAttribute("note") Note note, BindingResult result, Model model,
-			@PathVariable("idPatient") String idPatient, HttpServletResponse servletResponse)
+			@PathVariable("idPatient") int idPatient, HttpServletResponse servletResponse)
 			throws ParseException, IOException {
 
 		String getNote = result.getFieldValue("note").toString();
-		Note creatNote = new Note(idPatient, getNote, new Date());
+		Note creatNote = new Note(idPatient, getNote, LocalDate.now());
 		noteProxy.addNote(creatNote);
 
 		model.addAttribute("allPatient", patientService.listPatient());
@@ -161,7 +160,7 @@ public class PatientController {
 	}
 
 	@GetMapping("/updateNote/{idNote}/{patientId}")
-	public String showUpdateNote(@PathVariable("idNote") String idNote, @PathVariable("patientId") String patientId,
+	public String showUpdateNote(@PathVariable("idNote") String idNote, @PathVariable("patientId") int patientId,
 			Model model) {
 
 		Note note = noteProxy.getNote(idNote);
@@ -180,7 +179,7 @@ public class PatientController {
 		String noteText = result.getFieldValue("note").toString();
 		getNote.setNote(noteText);
 		noteProxy.addNote(getNote);
-		String idPatient = getNote.getPatientId();
+		int idPatient = getNote.getPatientId();
 
 		model.addAttribute("allPatient", patientService.listPatient());
 

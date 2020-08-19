@@ -1,29 +1,29 @@
 package com.mediscreen.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Note {
 
 	private String id;
 
-	private String patientId;
+	private int patientId;
 
 	private String note;
 
-	private Date date;
+	private LocalDate date;
 
-	public Note(String patientId, String note, Date date) {
+	public Note(int patientId, String note, LocalDate date) {
 		super();
 		this.patientId = patientId;
 		this.note = note;
 		this.date = date;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -35,11 +35,11 @@ public class Note {
 		this.id = id;
 	}
 
-	public String getPatientId() {
+	public int getPatientId() {
 		return patientId;
 	}
 
-	public void setPatientId(String patientId) {
+	public void setPatientId(int patientId) {
 		this.patientId = patientId;
 	}
 

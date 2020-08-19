@@ -16,7 +16,7 @@ import com.mediscreen.model.Note;
 public interface NoteProxy {
 
 	@GetMapping("note/listNote/{patientId}")
-	List<Note> listNotes(@PathVariable(value = "patientId") String patientId);
+	List<Note> listNotes(@PathVariable(value = "patientId") int patientId);
 
 	@PostMapping("note/addNote")
 	Note addNote(@RequestBody Note note);

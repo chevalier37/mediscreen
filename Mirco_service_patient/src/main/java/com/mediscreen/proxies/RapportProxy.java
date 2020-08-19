@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface RapportProxy {
 
 	@GetMapping("rapport/getRapport/{patientId}")
-	String getRapport(@PathVariable("patientId") String patientId);
+	String getRapport(@PathVariable("patientId") int patientId);
 
 }
