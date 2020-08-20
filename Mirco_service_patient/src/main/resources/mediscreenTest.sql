@@ -1,2 +1,2 @@
-DELETE FROM mediscreen.patient;
-ALTER TABLE mediscreen.patient AUTO_INCREMENT = 1;
+DELETE FROM mediscreenTest.patient;
+ALTER TABLE mediscreenTest.patient AUTO_INCREMENT = 1;

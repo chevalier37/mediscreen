@@ -61,6 +61,12 @@ public class ControllerTest {
 	}
 
 	@Test
+	public void validateFTest() throws Exception {
+		Patient patient = new Patient("test12", "familyNane", LocalDate.now(), Gender.F, "150 street", "120-120-120");
+		mockMvc.perform(post("/patient/validate").flashAttr("patient", patient)).andExpect(status().isFound());
+	}
+
+	@Test
 	public void addPatient() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/patient/add")).andDo(print()).andExpect(status().isOk());
 	}
@@ -97,15 +103,18 @@ public class ControllerTest {
 				.andDo(print()).andExpect(status().isBadRequest());
 	}
 
-	@Test
 	public void updateNoteTest() throws Exception {
 		Patient patient = new Patient("test12", "familyNane", LocalDate.now(), Gender.M, "150 street", "120-120-120");
 		Mockito.when(patientService.getPatientById(1)).thenReturn(Optional.of(patient));
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/patient/updateNote/1")).andDo(print())
-				.andExpect(status().isOk());
+		Note note = new Note(1, "note test", LocalDate.now());
+		Mockito.when(noteProxy.getNote("1")).thenReturn(note);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/patient/updateNote/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"patientId\": \"50\",\"note\": \"controller test\",\"date\": \"2012-04-23T18:25:43.511Z\"}")
+				.accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print()).andExpect(status().isFound());
 	}
 
-	@Test
 	public void addNoteTest() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/patient/addNotes/1").contentType(MediaType.APPLICATION_JSON)
 				.content("{\"patientId\": \"50\",\"note\": \"controller test\",\"date\": \"2012-04-23T18:25:43.511Z\"}")
@@ -124,7 +133,6 @@ public class ControllerTest {
 				.andExpect(status().isFound());
 	}
 
-	@Test
 	public void showUpdateNoteTest() throws Exception {
 		Patient patient = new Patient("test12", "familyNane", LocalDate.now(), Gender.M, "150 street", "120-120-120");
 		Note note = new Note(1, "note", LocalDate.now());
